@@ -1,1 +1,1 @@
-# Cimema-App
+# Cinema-App
