@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable react/button-has-type */
+/* eslint-disable import/prefer-default-export */
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {

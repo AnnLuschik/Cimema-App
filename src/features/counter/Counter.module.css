@@ -49,7 +49,7 @@
 }
 
 .asyncButton {
-  composes: button;
+  ime-mode: button;
   position: relative;
   margin-left: 8px;
 }
