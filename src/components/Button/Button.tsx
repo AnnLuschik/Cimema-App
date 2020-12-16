@@ -11,8 +11,16 @@ export function Button({ children, onClick, ...restProps }: IProps) {
 }
 
 const StyledButton = styled.button`
-  padding: 5px 15px;
+  padding: 5px 25px;
+  font-size: 14px;
   color: #FFFFFF;
   text-transform: uppercase;
-  background-color: #F6F5F6;
+  background-color: #F65263;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f54456;
+  }
 `;

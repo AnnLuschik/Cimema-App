@@ -6,7 +6,7 @@ export const GET_MOVIES_FAILURE = 'GET_MOVIES_FAILURE';
 
 interface GetMoviesRequestAction {
   type: typeof GET_MOVIES_REQUEST
-  payload: string
+  payload: {searchValue: string, searchType: string}
 }
 
 interface GetMoviesSuccessAction {
@@ -23,7 +23,8 @@ export type SearchActionTypes = GetMoviesRequestAction
 | GetMoviesSuccessAction
 | GetMoviesFailureAction;
 
-export function getMoviesRequest(query: string): SearchActionTypes {
+export function getMoviesRequest(query: {
+  searchValue: string, searchType: string}): SearchActionTypes {
   return {
     type: GET_MOVIES_REQUEST,
     payload: query,
