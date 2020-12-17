@@ -1,13 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import styled from 'styled-components';
-import { Input, Button, RadioInput } from './components';
-import { getMoviesRequest } from './app/actions';
+import {
+  Input, Button, RadioInput, MovieItem,
+} from './components';
+import { getMoviesRequest } from './Movie';
+import { RootState } from './store';
 
 export function App() {
   const [value, setValue] = useState('');
   const [searchBy, setSearchBy] = useState('title');
+
+  const { data } = useSelector((state: RootState) => state.movie);
 
   const dispatch = useDispatch();
 
@@ -32,6 +37,21 @@ export function App() {
           </Container>
         </StyledForm>
       </div>
+      <MoviesContainer>
+        {
+          data ? data.data.map(({
+            title, genres, release_date, poster_path,
+          }) => (
+            <MovieItem
+              title={title}
+              genres={genres}
+              release_date={release_date}
+              poster_path={poster_path}
+            />
+          ))
+            : null
+        }
+      </MoviesContainer>
     </div>
   );
 }
@@ -56,5 +76,13 @@ const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 34%;
+  width: 35%;
+`;
+
+const MoviesContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 15px 20px;
 `;

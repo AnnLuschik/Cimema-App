@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 // import { applyMiddleware } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer } from './rootResucer';
-import { movieSearchMiddleware } from './middleware';
+import { movieSearchMiddleware } from '../Movie';
 
 export const store = configureStore({
   reducer: rootReducer,
