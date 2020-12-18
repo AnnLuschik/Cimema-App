@@ -1,5 +1,5 @@
 import { Middleware } from 'redux';
-import { RootState } from './rootResucer';
+import type { RootState } from '../store';
 import { GET_MOVIES_REQUEST, getMoviesSuccess, getMoviesFailure } from './actions';
 
 export const movieSearchMiddleware: Middleware<
