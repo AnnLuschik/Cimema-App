@@ -13,6 +13,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
@@ -63,6 +64,7 @@
   "devDependencies": {
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
+    "@types/react-router-dom": "^5.1.6",
     "@types/styled-components": "^5.1.5",
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
