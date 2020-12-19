@@ -16,12 +16,12 @@ export interface IMovieItem {
 export interface MoviesList {
   data: IMovieItem[]
   total: number
-  offset: number
-  limit: number
+  offset?: number
+  limit?: number
 }
 
 export interface MovieSearchState {
-  data: MoviesList | null
+  responseData: MoviesList | null
   errorMessage: string | null
   loading: boolean
 }

@@ -4,7 +4,7 @@ import {
 } from './actions';
 
 const initialState: MovieSearchState = {
-  data: null,
+  responseData: null,
   errorMessage: null,
   loading: false,
 };
@@ -17,7 +17,7 @@ export function movieSearchReducer(
     case GET_MOVIES_SUCCESS: {
       return {
         ...state,
-        data: action.payload,
+        responseData: action.payload,
         loading: false,
       };
     }
