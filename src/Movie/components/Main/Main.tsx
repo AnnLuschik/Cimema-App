@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MoviesList } from '../../types';
+import { IMovieItem } from '../../types';
 import { MovieItem } from '../MovieItem';
 
-export function Main({ data, total }: MoviesList) {
+interface IProps {
+  data: IMovieItem[]
+  total: number
+}
+
+export function Main({ data, total }: IProps) {
   return (
     <Container>
       <Topbar>

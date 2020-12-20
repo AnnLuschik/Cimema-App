@@ -45,6 +45,48 @@ export function getMoviesFailure(error: string): SearchActionTypes {
   };
 }
 
+export const GET_MORE_MOVIES_REQUEST = 'GET_MORE_MOVIES_REQUEST';
+export const GET_MORE_MOVIES_SUCCESS = 'GET_MORE_MOVIES_SUCCESS';
+export const GET_MORE_MOVIES_FAILURE = 'GET_MORE_MOVIES_FAILURE';
+
+interface GetMoreMoviesRequestAction {
+  type: typeof GET_MORE_MOVIES_REQUEST
+}
+
+interface GetMoreMoviesSuccessAction {
+  type: typeof GET_MORE_MOVIES_SUCCESS
+  payload: MoviesList
+}
+
+interface GetMoreMoviesFailureAction {
+  type: typeof GET_MORE_MOVIES_FAILURE
+  payload: string
+}
+
+export type MoreSearchActionTypes = GetMoreMoviesRequestAction
+| GetMoreMoviesSuccessAction
+| GetMoreMoviesFailureAction;
+
+export function getMoreMoviesRequest(): MoreSearchActionTypes {
+  return {
+    type: GET_MORE_MOVIES_REQUEST,
+  };
+}
+
+export function getMoreMoviesSuccess(data: MoviesList): MoreSearchActionTypes {
+  return {
+    type: GET_MORE_MOVIES_SUCCESS,
+    payload: data,
+  };
+}
+
+export function getMoreMoviesFailure(error: string): MoreSearchActionTypes {
+  return {
+    type: GET_MORE_MOVIES_FAILURE,
+    payload: error,
+  };
+}
+
 export const GET_SINGLE_MOVIE_REQUEST = 'GET_SINGLE_MOVIE_REQUEST';
 export const GET_SINGLE_MOVIE_SUCCESS = 'GET_SINGLE_MOVIE_SUCCESS';
 export const GET_SINGLE_MOVIE_FAILURE = 'GET_SINGLE_MOVIE_FAILURE';

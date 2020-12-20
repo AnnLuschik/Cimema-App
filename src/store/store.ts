@@ -2,11 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 // import { applyMiddleware } from 'redux';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import { rootReducer } from './rootResucer';
-import { movieSearchMiddleware } from '../Movie';
+import { movieSearchMiddleware, moreMovieSearchMiddleware } from '../Movie';
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: [movieSearchMiddleware],
+  middleware: [movieSearchMiddleware, moreMovieSearchMiddleware],
 });
 
 // export const store: Store = createStore(rootReducer, applyMiddleware(movieSearchMiddleware));
