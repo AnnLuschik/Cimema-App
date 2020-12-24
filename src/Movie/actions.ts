@@ -1,4 +1,4 @@
-import { MoviesList } from './types';
+import { MoviesList, IMovieItem } from './types';
 
 export const GET_MOVIES_REQUEST = 'GET_MOVIES_REQUEST';
 export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS';
@@ -90,3 +90,55 @@ export function getMoreMoviesFailure(error: string): MoreSearchActionTypes {
 export const GET_SINGLE_MOVIE_REQUEST = 'GET_SINGLE_MOVIE_REQUEST';
 export const GET_SINGLE_MOVIE_SUCCESS = 'GET_SINGLE_MOVIE_SUCCESS';
 export const GET_SINGLE_MOVIE_FAILURE = 'GET_SINGLE_MOVIE_FAILURE';
+export const DELETE_SINGLE_MOVIE_DATA = 'DELETE_SINGLE_MOVIE_DATA';
+
+interface GetSingleMovieRequestAction {
+  type: typeof GET_SINGLE_MOVIE_REQUEST
+  payload: number
+}
+
+interface GetSingleMovieSuccessAction {
+  type: typeof GET_SINGLE_MOVIE_SUCCESS
+  payload: IMovieItem
+}
+
+interface GetSingleMovieFailureAction {
+  type: typeof GET_SINGLE_MOVIE_FAILURE
+  payload: string
+}
+
+interface DeleteSingleMovieDataAction {
+  type: typeof DELETE_SINGLE_MOVIE_DATA
+}
+
+export type SingleSearchActionTypes = GetSingleMovieRequestAction
+| GetSingleMovieSuccessAction
+| GetSingleMovieFailureAction
+| DeleteSingleMovieDataAction;
+
+export function getSingleMovieRequest(id: number):SingleSearchActionTypes {
+  return {
+    type: GET_SINGLE_MOVIE_REQUEST,
+    payload: id,
+  };
+}
+
+export function getSingleMovieSuccess(data: IMovieItem):SingleSearchActionTypes {
+  return {
+    type: GET_SINGLE_MOVIE_SUCCESS,
+    payload: data,
+  };
+}
+
+export function getSingleMovieFailure(error: string):SingleSearchActionTypes {
+  return {
+    type: GET_SINGLE_MOVIE_FAILURE,
+    payload: error,
+  };
+}
+
+export function deleteSingleMovieData():SingleSearchActionTypes {
+  return {
+    type: DELETE_SINGLE_MOVIE_DATA,
+  };
+}

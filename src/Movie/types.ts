@@ -1,5 +1,5 @@
 export interface IMovieItem {
-  id?: number
+  id: number
   title: string // Movie title
   tagline?: string
   vote_average?: number
@@ -23,7 +23,9 @@ export interface MoviesList {
 export interface MovieSearchState {
   searchParams: {searchValue: string, searchType: string}
   responseData: MoviesList | null
+  singleMovieData: IMovieItem | null
   errorMessage: string | null
   loading: boolean
   loadingMore: boolean
+  loadingModal: boolean
 }

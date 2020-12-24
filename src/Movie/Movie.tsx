@@ -1,26 +1,58 @@
-import React, { useState, useCallback } from 'react';
+import React, {
+  useState, useCallback, useRef, useEffect,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Movie.css';
 import styled from 'styled-components';
+import BarLoader from 'react-spinners/BarLoader';
 import {
   Input, Button, RadioInput,
 } from '../components';
 import { Main } from './components';
-import { getMoviesRequest } from './actions';
+import { getMoviesRequest, getMoreMoviesRequest } from './actions';
 import { RootState } from '../store';
 
 export const Movie: React.FunctionComponent = () => {
   const [value, setValue] = useState('');
   const [searchBy, setSearchBy] = useState('title');
 
-  const { responseData } = useSelector((state: RootState) => state.movie);
+  const { responseData, loading, errorMessage } = useSelector((state: RootState) => state.movie);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (responseData) {
+      const { total } = responseData;
+      if (responseData.data.length < total) {
+        // const options = {
+        //   root: null,
+        //   rootMargin: '',
+        //   threshold: 0.5,
+        // };
+
+        // const handleObserver:IntersectionObserverCallback = (entries) => {
+        //   const target = entries[0];
+        //   if (target.isIntersecting) {
+        //     dispatch(getMoreMoviesRequest());
+        //   }
+        // };
+
+        // const observer = new IntersectionObserver(handleObserver, options);
+
+        // if (loader.current) {
+        //   observer.observe(loader.current);
+        // }
+        dispatch(getMoreMoviesRequest());
+      }
+    }
+  }, [responseData, dispatch]);
 
   const onClickButton = useCallback(() => {
     dispatch(getMoviesRequest({ searchValue: value, searchType: searchBy }));
     setValue('');
   }, [dispatch, value, searchBy]);
+
+  const loader = useRef<HTMLDivElement>(null);
 
   return (
     <div className="App">
@@ -38,7 +70,10 @@ export const Movie: React.FunctionComponent = () => {
           </Container>
         </StyledForm>
       </div>
-      {responseData ? <Main data={responseData.data} total={responseData.total} /> : null}
+      { loading ? <BarLoader color="#F65263" width="100%" /> : null }
+      { errorMessage ? <p style={{ color: '#b40719' }}>{errorMessage}</p> : null }
+      { responseData ? <Main data={responseData.data} total={responseData.total} ref={loader} />
+        : null }
     </div>
   );
 };

@@ -3,6 +3,9 @@ import type { RootState } from '../store';
 import {
   GET_MOVIES_REQUEST, getMoviesSuccess, getMoviesFailure,
   GET_MORE_MOVIES_REQUEST, getMoreMoviesSuccess, getMoreMoviesFailure,
+  GET_SINGLE_MOVIE_REQUEST,
+  getSingleMovieSuccess,
+  getSingleMovieFailure,
 } from './actions';
 
 export const movieSearchMiddleware: Middleware<
@@ -34,6 +37,19 @@ RootState
         .then((result) => store.dispatch(getMoreMoviesSuccess(result)))
         .catch((error) => store.dispatch(getMoreMoviesFailure(error)));
     }
+  }
+  next(action);
+};
+
+export const singleSearchMiddleware: Middleware<
+unknown,
+RootState
+> = (store) => (next) => (action) => {
+  if (action.type === GET_SINGLE_MOVIE_REQUEST) {
+    fetch(`https://reactjs-cdp.herokuapp.com/movies/${action.payload}`)
+      .then((res) => res.json())
+      .then((result) => store.dispatch(getSingleMovieSuccess(result)))
+      .catch((error) => store.dispatch(getSingleMovieFailure(error)));
   }
   next(action);
 };

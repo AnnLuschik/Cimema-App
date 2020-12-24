@@ -1,15 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import { IMovieItem } from '../../types';
 import defaultPicture from '../../../images/default-movie.jpg';
+import { getSingleMovieRequest } from '../../actions';
 
 export function MovieItem({
-  title, genres, release_date: date, poster_path: path,
+  title, genres, release_date: date, poster_path: path, id,
 }: IMovieItem) {
   const year = date.split('-')[0];
   const genresData = genres.join(' & ');
 
   const [picture, setPicture] = useState('');
+  const dispatch = useDispatch();
+
+  const onClickHandler = useCallback(() => {
+    dispatch(getSingleMovieRequest(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
     async function loadPicture() {
@@ -25,7 +32,7 @@ export function MovieItem({
 
   return (
     <MovieCard>
-      <ImageContainer>
+      <ImageContainer onClick={onClickHandler}>
         <StyledImg
           src={picture}
           alt={title}

@@ -1,3 +1,3 @@
 export { MovieItem } from './MovieItem';
-export { DetailsPage } from './DetailsPage';
+export { DetailsModal } from './DetailsModal';
 export { Main } from './Main';

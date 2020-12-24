@@ -2,19 +2,23 @@ import { MovieSearchState } from './types';
 import {
   SearchActionTypes, GET_MOVIES_SUCCESS, GET_MOVIES_FAILURE, GET_MOVIES_REQUEST,
   MoreSearchActionTypes, GET_MORE_MOVIES_SUCCESS, GET_MORE_MOVIES_FAILURE, GET_MORE_MOVIES_REQUEST,
+  GET_SINGLE_MOVIE_SUCCESS, GET_SINGLE_MOVIE_FAILURE, GET_SINGLE_MOVIE_REQUEST,
+  SingleSearchActionTypes, DELETE_SINGLE_MOVIE_DATA,
 } from './actions';
 
 const initialState: MovieSearchState = {
   searchParams: { searchValue: '', searchType: '' },
   responseData: null,
+  singleMovieData: null,
   errorMessage: null,
   loading: false,
   loadingMore: false,
+  loadingModal: false,
 };
 
 export function movieSearchReducer(
   state = initialState,
-  action: SearchActionTypes | MoreSearchActionTypes,
+  action: SearchActionTypes | MoreSearchActionTypes | SingleSearchActionTypes,
 ): MovieSearchState {
   switch (action.type) {
     case GET_MOVIES_SUCCESS: {
@@ -67,6 +71,36 @@ export function movieSearchReducer(
       return {
         ...state,
         loadingMore: true,
+      };
+    }
+
+    case GET_SINGLE_MOVIE_SUCCESS: {
+      return {
+        ...state,
+        loadingModal: false,
+        singleMovieData: action.payload,
+      };
+    }
+
+    case GET_SINGLE_MOVIE_FAILURE: {
+      return {
+        ...state,
+        loadingModal: false,
+        errorMessage: action.payload,
+      };
+    }
+
+    case GET_SINGLE_MOVIE_REQUEST: {
+      return {
+        ...state,
+        loadingModal: true,
+      };
+    }
+
+    case DELETE_SINGLE_MOVIE_DATA: {
+      return {
+        ...state,
+        singleMovieData: null,
       };
     }
 
