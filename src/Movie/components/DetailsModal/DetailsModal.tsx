@@ -6,42 +6,39 @@ import { RootState } from '../../../store';
 import { deleteSingleMovieData, getSingleMovieRequest } from '../../actions';
 import defaultPicture from '../../../images/default-movie.jpg';
 import { IMovieItem } from '../../types';
+import { NotFoundPage } from '../NotFoundPage';
 
 interface ParamTypes {
   id: string
 }
 
 export function DetailsModal() {
-  const { singleMovieData } = useSelector((state: RootState) => state.movie);
-  const { id } = useParams<ParamTypes>();
-  const requestId: number = parseInt(id, 10);
-
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const backFunction = useCallback(() => {
-    history.goBack();
-  }, [history]);
+  const { id } = useParams<ParamTypes>();
+  const requestId: number = parseInt(id, 10);
+
+  const { singleMovieData } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
-    if (!singleMovieData) {
-      dispatch(getSingleMovieRequest(requestId));
-    }
-  }, [dispatch, requestId, singleMovieData]);
+    dispatch(getSingleMovieRequest(requestId));
+  }, [dispatch, requestId]);
 
-  useEffect(() => () => {
+  const backFunction = useCallback(() => {
+    history.goBack();
     dispatch(deleteSingleMovieData());
-  }, [dispatch]);
+  }, [history, dispatch]);
 
   return (
-    singleMovieData
+    singleMovieData?.id
       ? (
         <>
           <Fogging onClick={backFunction}>
             <Content data={singleMovieData} onClick={((e) => e.stopPropagation())} />
           </Fogging>
         </>
-      ) : null
+      ) : <NotFoundPage />
   );
 }
 

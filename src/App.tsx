@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, useLocation } from 'react-router-dom';
 import { Location } from 'history';
-import { Movie, DetailsModal } from './Movie';
+import { Movie, DetailsModal, NotFoundPage } from './Movie';
 
 export function App() {
   const location = useLocation<{ background?: Location<typeof Location | null > }>();
@@ -10,7 +10,8 @@ export function App() {
     <>
       <Switch location={background || location}>
         <Route exact path="/" component={Movie} />
-        <Route path="/film/:id" component={DetailsModal} />
+        <Route exact path="/film/:id" component={DetailsModal} />
+        <Route component={NotFoundPage} />
       </Switch>
       {background && <Route path="/film/:id" component={DetailsModal} />}
     </>
