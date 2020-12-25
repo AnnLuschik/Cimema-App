@@ -10,7 +10,7 @@ export interface ISearchParams {
 }
 
 export interface IMovieItem {
-  id: number
+  id?: number
   title: string // Movie title
   tagline?: string
   vote_average?: number

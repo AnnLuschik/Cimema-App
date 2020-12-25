@@ -16,11 +16,7 @@ export function TopBar({
   return (
     <Topbar>
       <div>
-        <Text>
-          {total}
-          {' '}
-          movies found
-        </Text>
+        <Text>{total ? `${total} movies found` : 'Nothing found'}</Text>
       </div>
       <SortPanel>
         <Text>Sort by</Text>

@@ -34,7 +34,6 @@ export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
               genres={genres}
               release_date={release_date}
               poster_path={poster_path}
-              id={id}
             />
           </StyledLink>
         ))}

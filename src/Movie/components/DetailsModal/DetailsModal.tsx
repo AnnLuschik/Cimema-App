@@ -20,15 +20,18 @@ export function DetailsModal() {
   const dispatch = useDispatch();
 
   const backFunction = useCallback(() => {
-    dispatch(deleteSingleMovieData());
     history.goBack();
-  }, [history, dispatch]);
+  }, [history]);
 
   useEffect(() => {
     if (!singleMovieData) {
       dispatch(getSingleMovieRequest(requestId));
     }
   }, [dispatch, requestId, singleMovieData]);
+
+  useEffect(() => () => {
+    dispatch(deleteSingleMovieData());
+  }, [dispatch]);
 
   return (
     singleMovieData
