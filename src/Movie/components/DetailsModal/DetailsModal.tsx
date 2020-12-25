@@ -50,6 +50,7 @@ interface IPropsContent {
 function Content({
   data: {
     poster_path: image, title, tagline, overview, vote_average: rating, vote_count: voters,
+    budget, revenue, runtime,
   },
   onClick,
 }: IPropsContent) {
@@ -65,11 +66,15 @@ function Content({
           <StyledImg src={image} alt="" onError={onErrorImg} />
         </ImageContainer>
         <ContentContainer>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledText>{tagline}</StyledText>
+          <StyledTitle next={tagline}>{title}</StyledTitle>
+          <Tagline>{tagline}</Tagline>
           <StyledText>{overview}</StyledText>
-          <StyledText>{`Rating: ${rating}`}</StyledText>
-          <StyledText>{`Voters: ${voters}`}</StyledText>
+          <StyledText>{`Duration: ${runtime} min`}</StyledText>
+          <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
+          <Details>
+            <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
+            <VotersSpan>{`Voters: ${voters}`}</VotersSpan>
+          </Details>
         </ContentContainer>
       </ModalWindow>
     </>
@@ -93,16 +98,16 @@ const Fogging = styled.div`
 const ModalWindow = styled.div`
   position: absolute;
   top: 10%;
-  left: calc(50% - 400px);
+  left: calc(50% - 450px);
   display: flex;
-  width: 800px;
+  width: 900px;
   height: 600px;
   background: #FFFFFF;
   z-index: 10;
 `;
 
 const ImageContainer = styled.div`
-  width: 50%;
+  width: 400px;
   height: 100%;
 `;
 
@@ -113,20 +118,77 @@ const StyledImg = styled.img`
 `;
 
 const ContentContainer = styled.div`
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  width: 500px;
   height: 100%;
-  padding: 15px 10px;
+  padding: 25px 15px;
   font-family: 'Poppins', sans-serif;
 `;
 
-const StyledTitle = styled.h2`
+const StyledTitle = styled.h2<{ next: string | undefined}>`
+  ${(props) => (props.next ? 'margin-bottom: 12px;' : 'margin-bottom: 25px;')}
   font-weight: 600;
+  font-size: 40px;
   color: #01010D;
-  text-transform: uppercase;
+  line-height: 1;
+  text-transform: none;
+`;
+
+const Tagline = styled.p`
+  margin-bottom: 25px;
+  font-weight: 300;
+  font-size: 22px;
+  color: #01010D;
+  line-height: 1;
+  text-transform: none;
 `;
 
 const StyledText = styled.p`
-  font-size: 14px;
+  margin-bottom: 10px;
+  font-size: 16px;
   color: #01010D;
   text-transform: none;
+`;
+
+const Details = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: auto;
+  padding: 0 10px;
+`;
+
+const RatingSpan = styled.span<{percent: string}>`
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+
+  &::before {
+    content: "★★★★★";
+    position: absolute;
+    top: -9px;
+    left: calc(100% + 5px);
+    font-size: 40px;
+    color: transparent;
+    line-height: 1;
+    ${(props) => `background: linear-gradient(90deg, #FFCC00 0 ${props.percent}, #ECECEC ${props.percent} 100%);`}
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+`;
+
+const VotersSpan = styled.span`
+  position: relative;
+  font-weight: 600;
+  font-size: 18px;
+
+  &::before {
+    content: "\u2764";
+    position: absolute;
+    top: -8px;
+    right: calc(100% + 5px);
+    font-size: 30px;
+    color: red;
+  }
 `;
