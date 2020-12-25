@@ -1,17 +1,28 @@
-import { MoviesList, IMovieItem } from './types';
+import {
+  IMoviesList, IMovieItem, ISearchParams,
+} from './types';
 
 export const GET_MOVIES_REQUEST = 'GET_MOVIES_REQUEST';
 export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS';
 export const GET_MOVIES_FAILURE = 'GET_MOVIES_FAILURE';
 
+export const GET_MORE_MOVIES_REQUEST = 'GET_MORE_MOVIES_REQUEST';
+export const GET_MORE_MOVIES_SUCCESS = 'GET_MORE_MOVIES_SUCCESS';
+export const GET_MORE_MOVIES_FAILURE = 'GET_MORE_MOVIES_FAILURE';
+
+export const GET_SINGLE_MOVIE_REQUEST = 'GET_SINGLE_MOVIE_REQUEST';
+export const GET_SINGLE_MOVIE_SUCCESS = 'GET_SINGLE_MOVIE_SUCCESS';
+export const GET_SINGLE_MOVIE_FAILURE = 'GET_SINGLE_MOVIE_FAILURE';
+export const DELETE_SINGLE_MOVIE_DATA = 'DELETE_SINGLE_MOVIE_DATA';
+
 interface GetMoviesRequestAction {
   type: typeof GET_MOVIES_REQUEST
-  payload: {searchValue: string, searchType: string}
+  payload: ISearchParams
 }
 
 interface GetMoviesSuccessAction {
   type: typeof GET_MOVIES_SUCCESS
-  payload: MoviesList
+  payload: IMoviesList
 }
 
 interface GetMoviesFailureAction {
@@ -23,15 +34,14 @@ export type SearchActionTypes = GetMoviesRequestAction
 | GetMoviesSuccessAction
 | GetMoviesFailureAction;
 
-export function getMoviesRequest(query: {
-  searchValue: string, searchType: string}): SearchActionTypes {
+export function getMoviesRequest(query: ISearchParams): SearchActionTypes {
   return {
     type: GET_MOVIES_REQUEST,
     payload: query,
   };
 }
 
-export function getMoviesSuccess(data: MoviesList): SearchActionTypes {
+export function getMoviesSuccess(data: IMoviesList): SearchActionTypes {
   return {
     type: GET_MOVIES_SUCCESS,
     payload: data,
@@ -45,17 +55,13 @@ export function getMoviesFailure(error: string): SearchActionTypes {
   };
 }
 
-export const GET_MORE_MOVIES_REQUEST = 'GET_MORE_MOVIES_REQUEST';
-export const GET_MORE_MOVIES_SUCCESS = 'GET_MORE_MOVIES_SUCCESS';
-export const GET_MORE_MOVIES_FAILURE = 'GET_MORE_MOVIES_FAILURE';
-
 interface GetMoreMoviesRequestAction {
   type: typeof GET_MORE_MOVIES_REQUEST
 }
 
 interface GetMoreMoviesSuccessAction {
   type: typeof GET_MORE_MOVIES_SUCCESS
-  payload: MoviesList
+  payload: IMoviesList
 }
 
 interface GetMoreMoviesFailureAction {
@@ -73,7 +79,7 @@ export function getMoreMoviesRequest(): MoreSearchActionTypes {
   };
 }
 
-export function getMoreMoviesSuccess(data: MoviesList): MoreSearchActionTypes {
+export function getMoreMoviesSuccess(data: IMoviesList): MoreSearchActionTypes {
   return {
     type: GET_MORE_MOVIES_SUCCESS,
     payload: data,
@@ -86,11 +92,6 @@ export function getMoreMoviesFailure(error: string): MoreSearchActionTypes {
     payload: error,
   };
 }
-
-export const GET_SINGLE_MOVIE_REQUEST = 'GET_SINGLE_MOVIE_REQUEST';
-export const GET_SINGLE_MOVIE_SUCCESS = 'GET_SINGLE_MOVIE_SUCCESS';
-export const GET_SINGLE_MOVIE_FAILURE = 'GET_SINGLE_MOVIE_FAILURE';
-export const DELETE_SINGLE_MOVIE_DATA = 'DELETE_SINGLE_MOVIE_DATA';
 
 interface GetSingleMovieRequestAction {
   type: typeof GET_SINGLE_MOVIE_REQUEST

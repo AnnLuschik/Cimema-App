@@ -11,15 +11,6 @@ interface IProps {
 export function RadioInput({
   id, value, currentSearch, onChange,
 }: IProps) {
-  // const [isChecked, setIsChecked] = useState(false);
-
-  // const onChangeHandler = useCallback((event) => {
-  //   if (event.target.checked) {
-  //     onChange(id);
-  //     setIsChecked(event.target.checked);
-  //   }
-  // }, [id, onChange]);
-
   return (
     <>
       <StyledInput type="radio" id={id} onChange={onChange} checked={currentSearch === id} />

@@ -28,7 +28,7 @@ export function DetailsModal() {
     if (!singleMovieData) {
       dispatch(getSingleMovieRequest(requestId));
     }
-  }, [dispatch, id, requestId, singleMovieData]);
+  }, [dispatch, requestId, singleMovieData]);
 
   return (
     singleMovieData

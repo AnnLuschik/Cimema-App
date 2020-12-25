@@ -13,7 +13,11 @@ unknown,
 RootState
 > = (store) => (next) => (action) => {
   if (action.type === GET_MOVIES_REQUEST) {
-    fetch(`https://reactjs-cdp.herokuapp.com/movies?search=${action.payload.searchValue}&searchBy=${action.payload.searchType}`)
+    const {
+      searchValue, searchBy, sortBy, sortOrder,
+    } = action.payload;
+
+    fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=${sortOrder}&search=${searchValue}&searchBy=${searchBy}`)
       .then((res) => res.json())
       .then((result) => store.dispatch(getMoviesSuccess(result)))
       .catch((error) => store.dispatch(getMoviesFailure(error)));
@@ -29,10 +33,12 @@ RootState
 
   if (responseData) {
     const { offset, limit } = responseData;
-    const { searchValue, searchType } = searchParams;
+    const {
+      searchValue, searchBy, sortBy, sortOrder,
+    } = searchParams;
 
     if (action.type === GET_MORE_MOVIES_REQUEST) {
-      fetch(`https://reactjs-cdp.herokuapp.com/movies?search=${searchValue}&searchBy=${searchType}&offset=${offset + limit}`)
+      fetch(`https://reactjs-cdp.herokuapp.com/movies?sortBy=${sortBy}&sortOrder=${sortOrder}&search=${searchValue}&searchBy=${searchBy}&offset=${offset + limit}`)
         .then((res) => res.json())
         .then((result) => store.dispatch(getMoreMoviesSuccess(result)))
         .catch((error) => store.dispatch(getMoreMoviesFailure(error)));

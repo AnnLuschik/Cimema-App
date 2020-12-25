@@ -1,3 +1,14 @@
+export type SearchByType = 'title' | 'genres';
+export type SortByType = 'title' | 'release_date' | 'vote_average';
+export type SortOrderType = 'desc' | 'asc';
+
+export interface ISearchParams {
+  searchValue: string
+  searchBy: SearchByType
+  sortBy?: SortByType
+  sortOrder?: SortOrderType
+}
+
 export interface IMovieItem {
   id: number
   title: string // Movie title
@@ -13,7 +24,7 @@ export interface IMovieItem {
   genres: [string]
 }
 
-export interface MoviesList {
+export interface IMoviesList {
   data: IMovieItem[]
   total: number
   offset: number
@@ -21,8 +32,8 @@ export interface MoviesList {
 }
 
 export interface MovieSearchState {
-  searchParams: {searchValue: string, searchType: string}
-  responseData: MoviesList | null
+  searchParams: ISearchParams
+  responseData: IMoviesList | null
   singleMovieData: IMovieItem | null
   errorMessage: string | null
   loading: boolean

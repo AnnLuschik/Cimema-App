@@ -5,18 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Movie.css';
 import styled from 'styled-components';
 import BarLoader from 'react-spinners/BarLoader';
-import {
-  Input, Button, RadioInput,
-} from '../components';
-import { Main } from './components';
+import { Input, Button, RadioInput } from '../components';
+import { Main, TopBar } from './components';
 import { getMoviesRequest, getMoreMoviesRequest } from './actions';
+import { SearchByType, SortByType, SortOrderType } from './types';
 import { RootState } from '../store';
 
 export const Movie: React.FunctionComponent = () => {
   const [value, setValue] = useState('');
-  const [searchBy, setSearchBy] = useState('title');
+  const [searchByValue, setSearchByValue] = useState<SearchByType>('title');
+  const [sortByValue, setSortByValue] = useState<SortByType>('title');
+  const [sortOrderValue, setSortOrderValue] = useState<SortOrderType>('asc');
 
-  const { responseData, loading, errorMessage } = useSelector((state: RootState) => state.movie);
+  const {
+    responseData,
+    loading,
+    errorMessage,
+    searchParams: {
+      searchValue: currentSearchValue,
+      searchBy: currentSearchBy,
+      sortBy: currentSortBy,
+    },
+  } = useSelector((state: RootState) => state.movie);
 
   const dispatch = useDispatch();
 
@@ -47,10 +57,50 @@ export const Movie: React.FunctionComponent = () => {
     }
   }, [responseData, dispatch]);
 
-  const onClickButton = useCallback(() => {
-    dispatch(getMoviesRequest({ searchValue: value, searchType: searchBy }));
+  const onClickSearchButton = useCallback(() => {
+    dispatch(getMoviesRequest({
+      searchValue: value,
+      searchBy: searchByValue,
+      sortBy: sortByValue,
+      sortOrder: sortOrderValue,
+    }));
     setValue('');
-  }, [dispatch, value, searchBy]);
+    setSortByValue('title');
+    setSortOrderValue('asc');
+  }, [dispatch, value, searchByValue, sortByValue, sortOrderValue]);
+
+  const onClickDateBtn = useCallback(() => {
+    setSortByValue('release_date');
+    if (currentSortBy !== 'release_date') {
+      setSortOrderValue('desc');
+    } else if (sortOrderValue === 'asc') {
+      setSortOrderValue('desc');
+    } else {
+      setSortOrderValue('asc');
+    }
+  }, [sortOrderValue, currentSortBy]);
+
+  const onClickRatingBtn = useCallback(() => {
+    setSortByValue('vote_average');
+    if (currentSortBy !== 'vote_average') {
+      setSortOrderValue('desc');
+    } else if (sortOrderValue === 'asc') {
+      setSortOrderValue('desc');
+    } else {
+      setSortOrderValue('asc');
+    }
+  }, [sortOrderValue, currentSortBy]);
+
+  useEffect(() => {
+    if (sortByValue !== 'title') {
+      dispatch(getMoviesRequest({
+        searchValue: currentSearchValue,
+        searchBy: currentSearchBy,
+        sortBy: sortByValue,
+        sortOrder: sortOrderValue,
+      }));
+    }
+  }, [dispatch, sortByValue, currentSearchValue, currentSearchBy, sortOrderValue]);
 
   const loader = useRef<HTMLDivElement>(null);
 
@@ -63,16 +113,26 @@ export const Movie: React.FunctionComponent = () => {
           <Container>
             <CheckboxContainer>
               <p>search by</p>
-              <RadioInput id="title" value="title" currentSearch={searchBy} onChange={() => setSearchBy('title')} />
-              <RadioInput id="genres" value="genre" currentSearch={searchBy} onChange={() => setSearchBy('genres')} />
+              <RadioInput id="title" value="title" currentSearch={searchByValue} onChange={() => setSearchByValue('title')} />
+              <RadioInput id="genres" value="genre" currentSearch={searchByValue} onChange={() => setSearchByValue('genres')} />
             </CheckboxContainer>
-            <Button onClick={onClickButton}>search</Button>
+            <Button onClick={onClickSearchButton}>search</Button>
           </Container>
         </StyledForm>
       </div>
       { loading ? <BarLoader color="#F65263" width="100%" /> : null }
       { errorMessage ? <p style={{ color: '#b40719' }}>{errorMessage}</p> : null }
-      { responseData ? <Main data={responseData.data} total={responseData.total} ref={loader} />
+      { responseData ? (
+        <TopBar
+          total={responseData.total}
+          onClickDate={onClickDateBtn}
+          onClickRating={onClickRatingBtn}
+          currentSort={sortByValue}
+          currentOrder={sortOrderValue}
+        />
+      )
+        : null}
+      { responseData ? <Main data={responseData.data} ref={loader} />
         : null }
     </div>
   );

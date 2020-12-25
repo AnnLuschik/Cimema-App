@@ -4,10 +4,13 @@ import {
   MoreSearchActionTypes, GET_MORE_MOVIES_SUCCESS, GET_MORE_MOVIES_FAILURE, GET_MORE_MOVIES_REQUEST,
   GET_SINGLE_MOVIE_SUCCESS, GET_SINGLE_MOVIE_FAILURE, GET_SINGLE_MOVIE_REQUEST,
   SingleSearchActionTypes, DELETE_SINGLE_MOVIE_DATA,
+
 } from './actions';
 
 const initialState: MovieSearchState = {
-  searchParams: { searchValue: '', searchType: '' },
+  searchParams: {
+    searchValue: '', searchBy: 'title', sortBy: 'title', sortOrder: 'asc',
+  },
   responseData: null,
   singleMovieData: null,
   errorMessage: null,
@@ -40,7 +43,10 @@ export function movieSearchReducer(
     case GET_MOVIES_REQUEST: {
       return {
         ...state,
-        searchParams: action.payload,
+        searchParams: {
+          ...state.searchParams,
+          ...action.payload,
+        },
         loading: true,
         errorMessage: null,
       };
