@@ -58,9 +58,7 @@ export function movieSearchReducer(
         loadingMore: false,
         responseData: {
           ...action.payload,
-          data: state.responseData
-            ? [...state.responseData.data || [], ...action.payload.data]
-            : [],
+          data: [...state.responseData?.data || [], ...action.payload.data],
         },
       };
     }

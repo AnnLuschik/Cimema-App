@@ -28,12 +28,17 @@ const StyledLabel = styled.label<{ isChecked: boolean }>`
   margin-right: 5px;
   padding: 5px 20px;
   font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
   color: #FFFFFF;
   text-transform: uppercase;
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 
   ${(props) => (props.isChecked
     ? 'background: #F65263'
     : 'background: #3B3C3C'
   )}
+  
 `;

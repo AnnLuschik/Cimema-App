@@ -2,7 +2,6 @@ import React, {
   useState, useCallback, useRef, useEffect,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import './Movie.css';
 import styled from 'styled-components';
 import BarLoader from 'react-spinners/BarLoader';
 import { Input, Button, RadioInput } from '../components';
@@ -10,6 +9,7 @@ import { Main, TopBar } from './components';
 import { getMoviesRequest, getMoreMoviesRequest } from './actions';
 import { SearchByType, SortByType, SortOrderType } from './types';
 import { RootState } from '../store';
+import headerBcg from '../images/header.jpg';
 
 export const Movie: React.FunctionComponent = () => {
   const [value, setValue] = useState('');
@@ -31,30 +31,28 @@ export const Movie: React.FunctionComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (responseData) {
-      const { total } = responseData;
-      if (responseData.data.length < total) {
-        // const options = {
-        //   root: null,
-        //   rootMargin: '',
-        //   threshold: 0.5,
-        // };
+    const options = {
+      root: null,
+      rootMargin: '',
+      threshold: 0.5,
+    };
 
-        // const handleObserver:IntersectionObserverCallback = (entries) => {
-        //   const target = entries[0];
-        //   if (target.isIntersecting) {
-        //     dispatch(getMoreMoviesRequest());
-        //   }
-        // };
-
-        // const observer = new IntersectionObserver(handleObserver, options);
-
-        // if (loader.current) {
-        //   observer.observe(loader.current);
-        // }
+    const handleObserver:IntersectionObserverCallback = (entries) => {
+      const target = entries[0];
+      if (target.isIntersecting) {
         dispatch(getMoreMoviesRequest());
       }
+    };
+
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (responseData) {
+      const { total } = responseData;
+
+      if (responseData.data.length < total && loader.current) {
+        observer.observe(loader.current);
+      }
     }
+    return () => observer.disconnect();
   }, [responseData, dispatch]);
 
   const onClickSearchButton = useCallback(() => {
@@ -105,21 +103,23 @@ export const Movie: React.FunctionComponent = () => {
   const loader = useRef<HTMLDivElement>(null);
 
   return (
-    <div className="App">
-      <div className="header">
-        <StyledForm onSubmit={(e) => e.preventDefault()}>
-          <h3>find your movie</h3>
-          <Input value={value} onChange={(e) => setValue(e)} />
-          <Container>
-            <CheckboxContainer>
-              <p>search by</p>
-              <RadioInput id="title" value="title" currentSearch={searchByValue} onChange={() => setSearchByValue('title')} />
-              <RadioInput id="genres" value="genre" currentSearch={searchByValue} onChange={() => setSearchByValue('genres')} />
-            </CheckboxContainer>
-            <Button onClick={onClickSearchButton}>search</Button>
-          </Container>
-        </StyledForm>
-      </div>
+    <div style={{ width: '1366px', margin: '0 auto' }}>
+      <StyledHeader image={headerBcg}>
+        <Fogging>
+          <StyledForm onSubmit={(e) => e.preventDefault()}>
+            <StyledTitle>find your movie</StyledTitle>
+            <Input value={value} onChange={(e) => setValue(e)} />
+            <Container>
+              <CheckboxContainer>
+                <p style={{ marginRight: '5px', color: '#FFFFFF', textTransform: 'uppercase' }}>search by</p>
+                <RadioInput id="title" value="title" currentSearch={searchByValue} onChange={() => setSearchByValue('title')} />
+                <RadioInput id="genres" value="genre" currentSearch={searchByValue} onChange={() => setSearchByValue('genres')} />
+              </CheckboxContainer>
+              <Button onClick={onClickSearchButton}>search</Button>
+            </Container>
+          </StyledForm>
+        </Fogging>
+      </StyledHeader>
       { loading ? <BarLoader color="#F65263" width="100%" /> : null }
       { errorMessage ? <p style={{ color: '#b40719' }}>{errorMessage}</p> : null }
       { responseData ? (
@@ -138,6 +138,13 @@ export const Movie: React.FunctionComponent = () => {
   );
 };
 
+const StyledHeader = styled.div<{image: string}>`
+  width: 100%;
+  height: 300px;
+  ${(props) => `background: url(${props.image}) center no-repeat;`}
+  background-size: cover;
+`;
+
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -152,11 +159,28 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  padding-top: 15px;
 `;
 
 const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 35%;
+`;
+
+const Fogging = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 5px 20px;
+  background: rgba(0,0,0,0.6);
+`;
+
+const StyledTitle = styled.h3`
+  font-weight: 600;
+    font-size: 30px;
+    color: #FFFFFF;
+    text-transform: uppercase;
 `;

@@ -54,10 +54,14 @@ const StyledButton = styled.button<{ current: SortByType, order: SortOrderType }
   padding: 2px 5px;
   font-weight: 600;
   font-size: 16px;
+  font-family: 'Poppins', sans-serif;
   background: none;
   border: none;
   cursor: pointer;
   outline: none;
+  &:hover {
+    opacity: 0.8;
+  }
 
   ${(props) => (props.current === props.id
     ? 'color: #F65263'
@@ -66,6 +70,7 @@ const StyledButton = styled.button<{ current: SortByType, order: SortOrderType }
 `;
 
 const Text = styled.p`
+  margin-right: 10px;
   font-weight: 600;
   font-size: 16px;
   color: #565556;

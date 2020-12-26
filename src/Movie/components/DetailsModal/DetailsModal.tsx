@@ -60,24 +60,22 @@ function Content({
   }, []);
 
   return (
-    <>
-      <ModalWindow onClick={onClick}>
-        <ImageContainer>
-          <StyledImg src={image} alt="" onError={onErrorImg} />
-        </ImageContainer>
-        <ContentContainer>
-          <StyledTitle next={tagline}>{title}</StyledTitle>
-          <Tagline>{tagline}</Tagline>
-          <StyledText>{overview}</StyledText>
-          <StyledText>{`Duration: ${runtime} min`}</StyledText>
-          <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
-          <Details>
-            <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
-            <VotersSpan>{`Voters: ${voters}`}</VotersSpan>
-          </Details>
-        </ContentContainer>
-      </ModalWindow>
-    </>
+    <ModalWindow onClick={onClick}>
+      <ImageContainer>
+        <StyledImg src={image} alt="" onError={onErrorImg} />
+      </ImageContainer>
+      <ContentContainer>
+        <StyledTitle next={tagline}>{title}</StyledTitle>
+        <Tagline>{tagline}</Tagline>
+        <StyledText>{overview}</StyledText>
+        <StyledText>{`Duration: ${runtime} min`}</StyledText>
+        <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
+        <Details>
+          <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
+          <VotersSpan>{`Voters: ${voters}`}</VotersSpan>
+        </Details>
+      </ContentContainer>
+    </ModalWindow>
   );
 }
 
