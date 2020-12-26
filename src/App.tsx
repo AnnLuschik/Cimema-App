@@ -9,11 +9,11 @@ export function App() {
   return (
     <>
       <Switch location={background || location}>
-        <Route exact path="https://github.com/AnnLuschik/Cinema-App" component={Movie} />
-        <Route exact path="https://github.com/AnnLuschik/Cinema-App/film/:id" component={DetailsModal} />
+        <Route exact path="/" component={Movie} />
+        <Route exact path="/film/:id" component={DetailsModal} />
         <Route component={NotFoundPage} />
       </Switch>
-      {background && <Route path="https://github.com/AnnLuschik/Cinema-App/film/:id" component={DetailsModal} />}
+      {background && <Route path="/film/:id" component={DetailsModal} />}
     </>
   );
 }
