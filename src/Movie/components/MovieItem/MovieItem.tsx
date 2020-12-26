@@ -41,6 +41,9 @@ const MovieCard = styled.div`
   flex-direction: column;
   width: 300px;
   height: 500px;
+  &:hover {
+    transform: scale(1.05);
+  }
 `;
 
 const ImageContainer = styled.div`

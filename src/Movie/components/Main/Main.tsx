@@ -58,7 +58,7 @@ const MoviesContainer = styled.div`
   grid-column-gap: 5vw;
   justify-items: center;
   width: 100%;
-  padding: 15px 20px;
+  padding: 20px;
 `;
 
 const LoaderDiv = styled.div`
