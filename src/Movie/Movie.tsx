@@ -25,6 +25,7 @@ export const Movie: React.FunctionComponent = () => {
       searchValue: currentSearchValue,
       searchBy: currentSearchBy,
       sortBy: currentSortBy,
+      sortOrder: currentSortOrder,
     },
   } = useSelector((state: RootState) => state.movie);
 
@@ -67,6 +68,17 @@ export const Movie: React.FunctionComponent = () => {
     setSortOrderValue('asc');
   }, [dispatch, value, searchByValue, sortByValue, sortOrderValue]);
 
+  const onClickTitleBtn = useCallback(() => {
+    setSortByValue('title');
+    if (currentSortBy !== 'title') {
+      setSortOrderValue('asc');
+    } else if (sortOrderValue === 'asc') {
+      setSortOrderValue('desc');
+    } else {
+      setSortOrderValue('asc');
+    }
+  }, [sortOrderValue, currentSortBy]);
+
   const onClickDateBtn = useCallback(() => {
     setSortByValue('release_date');
     if (currentSortBy !== 'release_date') {
@@ -90,7 +102,14 @@ export const Movie: React.FunctionComponent = () => {
   }, [sortOrderValue, currentSortBy]);
 
   useEffect(() => {
-    if (sortByValue !== 'title') {
+    if (!(sortByValue === 'title' && sortOrderValue === 'asc')) {
+      dispatch(getMoviesRequest({
+        searchValue: currentSearchValue,
+        searchBy: currentSearchBy,
+        sortBy: sortByValue,
+        sortOrder: sortOrderValue,
+      }));
+    } else if (currentSortOrder === 'desc' || currentSortBy !== 'title') {
       dispatch(getMoviesRequest({
         searchValue: currentSearchValue,
         searchBy: currentSearchBy,
@@ -98,7 +117,15 @@ export const Movie: React.FunctionComponent = () => {
         sortOrder: sortOrderValue,
       }));
     }
-  }, [dispatch, sortByValue, currentSearchValue, currentSearchBy, sortOrderValue]);
+  }, [
+    dispatch,
+    sortByValue,
+    currentSearchValue,
+    currentSearchBy,
+    currentSortBy,
+    currentSortOrder,
+    sortOrderValue,
+  ]);
 
   const loader = useRef<HTMLDivElement>(null);
 
@@ -125,6 +152,7 @@ export const Movie: React.FunctionComponent = () => {
       { responseData ? (
         <TopBar
           total={responseData.total}
+          onClickTitle={onClickTitleBtn}
           onClickDate={onClickDateBtn}
           onClickRating={onClickRatingBtn}
           currentSort={sortByValue}

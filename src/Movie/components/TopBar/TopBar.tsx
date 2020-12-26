@@ -4,6 +4,7 @@ import { SortByType, SortOrderType } from '../../types';
 
 interface IProps {
   total: number
+  onClickTitle: () => void
   onClickDate: () => void
   onClickRating: () => void
   currentSort: SortByType
@@ -11,7 +12,7 @@ interface IProps {
 }
 
 export function TopBar({
-  total, onClickDate, onClickRating, currentSort, currentOrder,
+  total, onClickTitle, onClickDate, onClickRating, currentSort, currentOrder,
 }: IProps) {
   return (
     <Topbar>
@@ -20,6 +21,10 @@ export function TopBar({
       </div>
       <SortPanel>
         <Text>Sort by</Text>
+        <StyledButton onClick={onClickTitle} id="title" current={currentSort} order={currentOrder}>
+          {currentSort === 'title' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
+          title
+        </StyledButton>
         <StyledButton onClick={onClickDate} id="release_date" current={currentSort} order={currentOrder}>
           {currentSort === 'release_date' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
           release date
