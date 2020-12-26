@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/AnnLuschik/Cinema-App/static/css/main.1b12f8e8.chunk.css",
-    "main.js": "/AnnLuschik/Cinema-App/static/js/main.1e1dc6a7.chunk.js",
-    "main.js.map": "/AnnLuschik/Cinema-App/static/js/main.1e1dc6a7.chunk.js.map",
+    "main.js": "/AnnLuschik/Cinema-App/static/js/main.a6bf0a46.chunk.js",
+    "main.js.map": "/AnnLuschik/Cinema-App/static/js/main.a6bf0a46.chunk.js.map",
     "runtime-main.js": "/AnnLuschik/Cinema-App/static/js/runtime-main.e8efb638.js",
     "runtime-main.js.map": "/AnnLuschik/Cinema-App/static/js/runtime-main.e8efb638.js.map",
-    "static/js/2.3cf68900.chunk.js": "/AnnLuschik/Cinema-App/static/js/2.3cf68900.chunk.js",
-    "static/js/2.3cf68900.chunk.js.map": "/AnnLuschik/Cinema-App/static/js/2.3cf68900.chunk.js.map",
+    "static/js/2.b0a6335f.chunk.js": "/AnnLuschik/Cinema-App/static/js/2.b0a6335f.chunk.js",
+    "static/js/2.b0a6335f.chunk.js.map": "/AnnLuschik/Cinema-App/static/js/2.b0a6335f.chunk.js.map",
     "index.html": "/AnnLuschik/Cinema-App/index.html",
     "static/css/main.1b12f8e8.chunk.css.map": "/AnnLuschik/Cinema-App/static/css/main.1b12f8e8.chunk.css.map",
-    "static/js/2.3cf68900.chunk.js.LICENSE.txt": "/AnnLuschik/Cinema-App/static/js/2.3cf68900.chunk.js.LICENSE.txt",
+    "static/js/2.b0a6335f.chunk.js.LICENSE.txt": "/AnnLuschik/Cinema-App/static/js/2.b0a6335f.chunk.js.LICENSE.txt",
     "static/media/404.258beab7.png": "/AnnLuschik/Cinema-App/static/media/404.258beab7.png",
     "static/media/default-movie.de4112fd.jpg": "/AnnLuschik/Cinema-App/static/media/default-movie.de4112fd.jpg",
     "static/media/header.a296579d.jpg": "/AnnLuschik/Cinema-App/static/media/header.a296579d.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.e8efb638.js",
-    "static/js/2.3cf68900.chunk.js",
+    "static/js/2.b0a6335f.chunk.js",
     "static/css/main.1b12f8e8.chunk.css",
-    "static/js/main.1e1dc6a7.chunk.js"
+    "static/js/main.a6bf0a46.chunk.js"
   ]
 }
