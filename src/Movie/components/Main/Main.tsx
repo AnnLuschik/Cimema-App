@@ -28,7 +28,7 @@ export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
         { data.map(({
           title, genres, release_date, poster_path, id,
         }) => (
-          <StyledLink key={id} to={{ pathname: `https://github.com/AnnLuschik/Cinema-App/film/${id}`, state: { background: location } }}>
+          <StyledLink key={id} to={{ pathname: `/film/${id}`, state: { background: location } }}>
             <MovieItem
               title={title}
               genres={genres}
