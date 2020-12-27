@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import './styles.css';
 
 interface IProps {
   id: string
@@ -32,9 +33,6 @@ const StyledLabel = styled.label<{ isChecked: boolean }>`
   color: #FFFFFF;
   text-transform: uppercase;
   cursor: pointer;
-  &:hover {
-    opacity: 0.8;
-  }
 
   ${(props) => (props.isChecked
     ? 'background: #F65263'

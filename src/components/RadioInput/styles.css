@@ -1,0 +1,7 @@
+input ~ label:hover {
+    background-color: #202020;
+}
+
+input:checked + label:hover {
+    background-color: #ec2f42;
+}
