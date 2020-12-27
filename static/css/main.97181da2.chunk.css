@@ -1,0 +1,2 @@
+*{box-sizing:border-box;margin:0;padding:0}body{display:flex;justify-content:center;margin:0 0 0 calc(100vw - 100%);font-family:"Poppins",sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}input~label:hover{background-color:#202020}input:checked+label:hover{background-color:#ec2f42}
+/*# sourceMappingURL=main.97181da2.chunk.css.map */
