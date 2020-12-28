@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { RootState } from '../../../store';
 import { IMovieItem } from '../../types';
@@ -11,7 +11,6 @@ interface IProps {
 }
 
 export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, ref) => {
-  const location = useLocation();
   const { singleMovieData } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
         { data.map(({
           title, genres, release_date, poster_path, id,
         }) => (
-          <StyledLink key={id} to={{ pathname: `/film/${id}`, state: { background: location } }}>
+          <StyledLink key={id} to={`/film/${id}`}>
             <MovieItem
               title={title}
               genres={genres}
