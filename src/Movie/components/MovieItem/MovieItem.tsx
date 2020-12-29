@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { IMovieItem } from '../../types';
 import defaultPicture from '../../../images/default-movie.jpg';
@@ -6,8 +6,8 @@ import defaultPicture from '../../../images/default-movie.jpg';
 export function MovieItem({
   title, genres, release_date: date, poster_path: path,
 }: IMovieItem) {
-  const year = date.split('-')[0];
-  const genresData = genres.join(' & ');
+  const year = useMemo(() => date.split('-')[0], [date]);
+  const genresData = useMemo(() => genres.join(' & '), [genres]);
 
   const onErrorImg = useCallback((e) => {
     e.target.onerror = null;
