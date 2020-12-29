@@ -2,11 +2,10 @@ import React, { useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import FadeLoader from 'react-spinners/FadeLoader';
 import { RootState } from '../../../store';
 import { deleteSingleMovieData, getSingleMovieRequest } from '../../actions';
 import defaultPicture from '../../../images/default-movie.jpg';
-import { IMovieItem } from '../../types';
-import { NotFoundPage } from '../NotFoundPage';
 
 interface ParamTypes {
   id: string
@@ -19,7 +18,11 @@ export function DetailsModal() {
   const { id } = useParams<ParamTypes>();
   const requestId: number = parseInt(id, 10);
 
-  const { singleMovieData } = useSelector((state: RootState) => state.movie);
+  const { singleMovieData, loadingModal } = useSelector((state: RootState) => state.movie);
+  const {
+    poster_path: image, title, tagline, overview, vote_average: rating, vote_count: voters,
+    budget, revenue, runtime,
+  } = singleMovieData || {};
 
   useEffect(() => {
     dispatch(getSingleMovieRequest(requestId));
@@ -30,52 +33,36 @@ export function DetailsModal() {
     dispatch(deleteSingleMovieData());
   }, [history, dispatch]);
 
-  return (
-    singleMovieData?.id
-      ? (
-        <>
-          <Fogging onClick={backFunction}>
-            <Content data={singleMovieData} onClick={((e) => e.stopPropagation())} />
-          </Fogging>
-        </>
-      ) : <NotFoundPage />
-  );
-}
-
-interface IPropsContent {
-  data: IMovieItem
-  onClick: (event: React.MouseEvent) => void
-}
-
-function Content({
-  data: {
-    poster_path: image, title, tagline, overview, vote_average: rating, vote_count: voters,
-    budget, revenue, runtime,
-  },
-  onClick,
-}: IPropsContent) {
   const onErrorImg = useCallback((e) => {
     e.target.onerror = null;
     e.target.src = defaultPicture;
   }, []);
 
   return (
-    <ModalWindow onClick={onClick}>
-      <ImageContainer>
-        <StyledImg src={image} alt="" onError={onErrorImg} />
-      </ImageContainer>
-      <ContentContainer>
-        <StyledTitle next={tagline}>{title}</StyledTitle>
-        <Tagline>{tagline}</Tagline>
-        <StyledText>{overview}</StyledText>
-        <StyledText>{`Duration: ${runtime} min`}</StyledText>
-        <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
-        <Details>
-          <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
-          <VotersSpan>{`Voters: ${voters}`}</VotersSpan>
-        </Details>
-      </ContentContainer>
-    </ModalWindow>
+    <Fogging onClick={backFunction}>
+      <ModalWindow>
+        <ImageContainer>
+          {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
+        </ImageContainer>
+        <>
+          {title ? (
+            <ContentContainer>
+              <StyledTitle next={tagline}>{title}</StyledTitle>
+              <Tagline>{tagline}</Tagline>
+              <StyledText>{overview}</StyledText>
+              <StyledText>{`Duration: ${runtime} min`}</StyledText>
+              <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
+              <Details>
+                <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
+                <VotersSpan>{`Voters: ${voters}`}</VotersSpan>
+              </Details>
+            </ContentContainer>
+          )
+            : null}
+          {!title && !loadingModal ? <p>Not found</p> : null}
+        </>
+      </ModalWindow>
+    </Fogging>
   );
 }
 
@@ -105,6 +92,9 @@ const ModalWindow = styled.div`
 `;
 
 const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 400px;
   height: 100%;
 `;
