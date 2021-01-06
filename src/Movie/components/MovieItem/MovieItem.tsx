@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IMovieItem } from '../../types';
 import defaultPicture from '../../../images/default-movie.jpg';
 
-export function MovieItem({
+function Item({
   title, genres, release_date: date, poster_path: path,
 }: IMovieItem) {
   const year = useMemo(() => date.split('-')[0], [date]);
@@ -94,3 +94,5 @@ const StyledText = styled.p`
   color: #000000;
   text-transform: none;
 `;
+
+export const MovieItem = React.memo(Item);

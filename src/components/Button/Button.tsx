@@ -11,8 +11,8 @@ export function Button({ children, onClick, ...restProps }: IProps) {
 }
 
 const StyledButton = styled.button`
-  padding: 5px 25px;
-  font-size: 14px;
+  padding: 0.5em 1em;
+  font-size: 1em;
   color: #FFFFFF;
   text-transform: uppercase;
   background-color: #F65263;

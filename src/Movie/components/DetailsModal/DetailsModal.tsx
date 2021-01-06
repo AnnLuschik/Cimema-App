@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
+import { enableBodyScroll } from 'body-scroll-lock';
 import { RootState } from '../../../store';
 import { deleteSingleMovieData, getSingleMovieRequest } from '../../actions';
 import defaultPicture from '../../../images/default-movie.jpg';
@@ -28,10 +29,15 @@ export function DetailsModal() {
     dispatch(getSingleMovieRequest(requestId));
   }, [dispatch, requestId]);
 
+  const target = document.querySelector('.modal');
+
   const backFunction = useCallback(() => {
-    history.goBack();
+    if (target) {
+      enableBodyScroll(target);
+    }
+    history.replace('/');
     dispatch(deleteSingleMovieData());
-  }, [history, dispatch]);
+  }, [target, history, dispatch]);
 
   const onErrorImg = useCallback((e) => {
     e.target.onerror = null;
@@ -40,7 +46,7 @@ export function DetailsModal() {
 
   return (
     <Fogging onClick={backFunction}>
-      <ModalWindow>
+      <ModalWindow className="modal">
         <ImageContainer>
           {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
         </ImageContainer>
@@ -49,8 +55,8 @@ export function DetailsModal() {
             <ContentContainer>
               <StyledTitle next={tagline}>{title}</StyledTitle>
               <Tagline>{tagline}</Tagline>
-              <StyledText>{overview}</StyledText>
-              <StyledText>{`Duration: ${runtime} min`}</StyledText>
+              <StyledText style={{ overflowY: 'auto' }}>{overview}</StyledText>
+              <StyledText>{runtime ? `Duration: ${runtime} min` : null}</StyledText>
               <StyledText>{budget && revenue ? `Budget: $${budget} / Revenue: $${revenue}` : null}</StyledText>
               <Details>
                 <RatingSpan percent={rating ? (`${String(rating * 10)}%`) : '0%'}>{`Rating: ${rating}`}</RatingSpan>
@@ -89,14 +95,34 @@ const ModalWindow = styled.div`
   height: 600px;
   background: #FFFFFF;
   z-index: 10;
+  @media (max-width: 1024px) {
+    left: calc(50% - 340px);
+    width: 675px;
+    height: 550px;
+  }
+  @media (max-width: 768px) {
+    left: calc(50% - 40vw);
+    width: 80vw;
+    height: 75vw;
+  }
+  @media screen and (max-width: 425px) {
+    top: 5%;
+    flex-direction: column;
+    height: auto;
+    overflow-y: scroll;
+  }
 `;
 
 const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
+  width: 40%;
   height: 100%;
+  @media (max-width: 425px) {
+    width: 100%;
+    height: 300px;
+  }
 `;
 
 const StyledImg = styled.img`
@@ -109,28 +135,39 @@ const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: top;
-  width: 500px;
+  width: 55%;
   height: 100%;
   padding: 25px 15px;
   font-family: 'Poppins', sans-serif;
+  @media (max-width: 425px) {
+    width: 100%;
+    padding: 10px;
+  }
 `;
 
 const StyledTitle = styled.h2<{ next: string | undefined}>`
   ${(props) => (props.next ? 'margin-bottom: 12px;' : 'margin-bottom: 25px;')}
   font-weight: 600;
-  font-size: 40px;
+  font-size: calc(30px + 0.7vw);
   color: #01010D;
   line-height: 1;
   text-transform: none;
+  @media (max-width: 425px) {
+    font-size: 20px;
+  }
 `;
 
 const Tagline = styled.p`
   margin-bottom: 25px;
   font-weight: 300;
-  font-size: 22px;
+  font-size: calc(20px + 0.1vw);
   color: #01010D;
   line-height: 1;
   text-transform: none;
+  @media (max-width: 425px) {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
 `;
 
 const StyledText = styled.p`
@@ -138,6 +175,9 @@ const StyledText = styled.p`
   font-size: 16px;
   color: #01010D;
   text-transform: none;
+  @media (max-width: 425px) {
+    font-size: 14px;
+  }
 `;
 
 const Details = styled.div`
@@ -145,6 +185,10 @@ const Details = styled.div`
   justify-content: space-between;
   margin-top: auto;
   padding: 0 10px;
+  @media (max-width: 1024px) {
+    flex-direction: column;
+    padding: 0;
+  }
 `;
 
 const RatingSpan = styled.span<{percent: string}>`
@@ -163,6 +207,10 @@ const RatingSpan = styled.span<{percent: string}>`
     ${(props) => `background: linear-gradient(90deg, #FFCC00 0 ${props.percent}, #ECECEC ${props.percent} 100%);`}
     background-clip: text;
     -webkit-background-clip: text;
+
+    @media (max-width: 1024px) {
+      left: 40%;
+    }
   }
 `;
 
@@ -178,5 +226,9 @@ const VotersSpan = styled.span`
     right: calc(100% + 5px);
     font-size: 30px;
     color: red;
+
+    @media (max-width: 1024px) {
+      display: none;
+    }
   }
 `;

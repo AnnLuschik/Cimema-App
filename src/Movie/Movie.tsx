@@ -130,7 +130,7 @@ export const Movie: React.FunctionComponent = () => {
   const loader = useRef<HTMLDivElement>(null);
 
   return (
-    <div style={{ width: '1366px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '1366px', margin: '0 auto' }}>
       <StyledHeader image={headerBcg}>
         <Fogging>
           <StyledForm onSubmit={(e) => e.preventDefault()}>
@@ -138,7 +138,7 @@ export const Movie: React.FunctionComponent = () => {
             <Input value={value} onChange={(e) => setValue(e)} />
             <Container>
               <CheckboxContainer>
-                <p style={{ marginRight: '5px', color: '#FFFFFF', textTransform: 'uppercase' }}>search by</p>
+                <StyledSearchBy>search by</StyledSearchBy>
                 <RadioInput id="title" value="title" currentSearch={searchByValue} onChange={() => setSearchByValue('title')} />
                 <RadioInput id="genres" value="genre" currentSearch={searchByValue} onChange={() => setSearchByValue('genres')} />
               </CheckboxContainer>
@@ -176,10 +176,16 @@ const StyledHeader = styled.div<{image: string}>`
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   width: 50%;
   height: 300px;
+  @media (max-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 320px) {
+    width: 95%;
+  }
 `;
 
 const Container = styled.div`
@@ -188,12 +194,30 @@ const Container = styled.div`
   align-items: center;
   width: 100%;
   padding-top: 15px;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
+  @media (max-width: 768px) {
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  @media (max-width: 425px) {
+    justify-content: space-between;
+  }
+`;
+
+const StyledSearchBy = styled.p`
+  margin-right: 5px;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  text-align: center;
 `;
 
 const Fogging = styled.div`
@@ -208,7 +232,7 @@ const Fogging = styled.div`
 
 const StyledTitle = styled.h3`
   font-weight: 600;
-    font-size: 30px;
-    color: #FFFFFF;
-    text-transform: uppercase;
+  font-size: 30px;
+  color: #FFFFFF;
+  text-transform: uppercase;
 `;
