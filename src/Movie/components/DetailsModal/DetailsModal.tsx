@@ -46,7 +46,7 @@ export function DetailsModal() {
 
   return (
     <Fogging onClick={backFunction}>
-      <ModalWindow className="modal">
+      <ModalWindow className="modal" onClick={(event) => event.stopPropagation()}>
         <ImageContainer>
           {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
         </ImageContainer>
@@ -188,6 +188,9 @@ const Details = styled.div`
   @media (max-width: 1024px) {
     flex-direction: column;
     padding: 0;
+  }
+  @media (max-width: 320px) {
+    flex-direction: row;
   }
 `;
 
