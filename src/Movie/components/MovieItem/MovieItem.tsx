@@ -43,6 +43,9 @@ const MovieCard = styled.div`
   height: 500px;
   &:hover {
     transform: scale(1.05);
+    @media (max-width: 600px) {
+      transform: none;
+    }
   }
 `;
 
