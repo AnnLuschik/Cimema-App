@@ -100,6 +100,7 @@ const ModalWindow = styled.div`
   height: 600px;
   background: #FFFFFF;
   z-index: 10;
+  
   @media (max-width: 1024px) {
     left: calc(50% - 340px);
     width: 675px;
@@ -110,7 +111,7 @@ const ModalWindow = styled.div`
     width: 80vw;
     height: 75vw;
   }
-  @media (max-width: 540px) {
+  @media (max-width: 600px) {
     top: 5%;
     flex-direction: column;
     height: auto;
@@ -124,7 +125,8 @@ const ImageContainer = styled.div`
   align-items: center;
   width: 40%;
   height: 100%;
-  @media (max-width: 540px) {
+
+  @media (max-width: 600px) {
     width: 100%;
     height: 300px;
   }
@@ -144,7 +146,8 @@ const ContentContainer = styled.div`
   height: 100%;
   padding: 25px 15px;
   font-family: 'Poppins', sans-serif;
-  @media (max-width: 540px) {
+
+  @media (max-width: 600px) {
     width: 100%;
     padding: 10px;
   }
@@ -157,7 +160,8 @@ const StyledTitle = styled.h2<{ next: string | undefined}>`
   color: #01010D;
   line-height: 1;
   text-transform: none;
-  @media (max-width: 540px) {
+
+  @media (max-width: 600px) {
     font-size: 20px;
   }
 `;
@@ -169,7 +173,7 @@ const Tagline = styled.p`
   color: #01010D;
   line-height: 1;
   text-transform: none;
-  @media (max-width: 540px) {
+  @media (max-width: 600px) {
     font-size: 18px;
     margin-bottom: 10px;
   }
@@ -180,7 +184,7 @@ const StyledText = styled.p`
   font-size: 16px;
   color: #01010D;
   text-transform: none;
-  @media (max-width: 540px) {
+  @media (max-width: 600px) {
     font-size: 14px;
   }
 `;
@@ -219,7 +223,10 @@ const RatingSpan = styled.span<{percent: string}>`
     @media (max-width: 1024px) {
       left: 40%;
     }
-
+    @media (max-width: 600px) {
+      top: -5px;
+      font-size: 35px;
+    }
     @media (max-width: 320px) {
       display: none;
     }
