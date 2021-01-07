@@ -4,6 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import FadeLoader from 'react-spinners/FadeLoader';
 import { enableBodyScroll } from 'body-scroll-lock';
+import { useSwipeable } from 'react-swipeable';
 import { RootState } from '../../../store';
 import { deleteSingleMovieData, getSingleMovieRequest } from '../../actions';
 import defaultPicture from '../../../images/default-movie.jpg';
@@ -44,9 +45,13 @@ export function DetailsModal() {
     e.target.src = defaultPicture;
   }, []);
 
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => backFunction(),
+  });
+
   return (
-    <Fogging onClick={backFunction}>
-      <ModalWindow className="modal" onClick={(event) => event.stopPropagation()}>
+    <Fogging onClick={backFunction} className="modal">
+      <ModalWindow {...swipeHandlers} onClick={(event) => event.stopPropagation()}>
         <ImageContainer>
           {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
         </ImageContainer>
