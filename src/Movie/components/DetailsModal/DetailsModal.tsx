@@ -78,7 +78,6 @@ export function DetailsModal() {
 }
 
 const Fogging = styled.div`
-  content: "";
   position: fixed;
   top: 0;
   right: 0;
@@ -99,6 +98,8 @@ const ModalWindow = styled.div`
   width: 900px;
   height: 600px;
   background: #FFFFFF;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   z-index: 10;
 
   @media (max-width: 1024px) {
