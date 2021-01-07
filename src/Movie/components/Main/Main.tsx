@@ -16,7 +16,7 @@ export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
 
   useEffect(() => {
     const target = document.querySelector('.modal');
-    if (target) {
+    if (target && singleMovieData) {
       disableBodyScroll(target);
     }
   }, [singleMovieData]);

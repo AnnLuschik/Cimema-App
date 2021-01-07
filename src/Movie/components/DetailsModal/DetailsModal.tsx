@@ -33,11 +33,11 @@ export function DetailsModal() {
   const target = document.querySelector('.modal');
 
   const backFunction = useCallback(() => {
+    history.replace('/');
+    dispatch(deleteSingleMovieData());
     if (target) {
       enableBodyScroll(target);
     }
-    history.replace('/');
-    dispatch(deleteSingleMovieData());
   }, [target, history, dispatch]);
 
   const onErrorImg = useCallback((e) => {
@@ -50,8 +50,8 @@ export function DetailsModal() {
   });
 
   return (
-    <Fogging onClick={backFunction} className="modal">
-      <ModalWindow {...swipeHandlers} onClick={(event) => event.stopPropagation()}>
+    <Fogging onClick={backFunction}>
+      <ModalWindow {...swipeHandlers} onClick={(event) => event.stopPropagation()} className="modal">
         <ImageContainer>
           {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
         </ImageContainer>
@@ -100,7 +100,7 @@ const ModalWindow = styled.div`
   height: 600px;
   background: #FFFFFF;
   z-index: 10;
-  
+
   @media (max-width: 1024px) {
     left: calc(50% - 340px);
     width: 675px;
