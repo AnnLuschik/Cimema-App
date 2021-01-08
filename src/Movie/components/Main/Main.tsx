@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { disableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 import { RootState } from '../../../store';
 import { IMovieItem } from '../../types';
 import { MovieItem } from '../MovieItem';
@@ -15,6 +15,7 @@ export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
   const { singleMovieData } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
+    clearAllBodyScrollLocks();
     const target = document.querySelector('.modal');
     if (target && singleMovieData) {
       disableBodyScroll(target);
