@@ -84,10 +84,8 @@ const Fogging = styled.div`
   bottom: 0;
   left: 0;
   display: block;
-  width: 100%;
-  height: 100%;
   background: rgba(0,0,0,0.5);
-  z-index: 5;
+  /* z-index: 5; */
 `;
 
 const ModalWindow = styled.div`
@@ -99,8 +97,7 @@ const ModalWindow = styled.div`
   height: 600px;
   background: #FFFFFF;
   overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  z-index: 10;
+  /* z-index: 10; */
 
   @media (max-width: 1024px) {
     left: calc(50% - 340px);
@@ -116,7 +113,6 @@ const ModalWindow = styled.div`
     top: 5%;
     flex-direction: column;
     height: auto;
-    overflow-y: scroll;
   }
 `;
 
