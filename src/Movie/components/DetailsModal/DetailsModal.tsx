@@ -85,7 +85,6 @@ const Fogging = styled.div`
   left: 0;
   display: block;
   background: rgba(0,0,0,0.5);
-  /* z-index: 5; */
 `;
 
 const ModalWindow = styled.div`
@@ -97,7 +96,6 @@ const ModalWindow = styled.div`
   height: 600px;
   background: #FFFFFF;
   overflow-y: auto;
-  /* z-index: 10; */
 
   @media (max-width: 1024px) {
     left: calc(50% - 340px);
@@ -156,7 +154,6 @@ const StyledTitle = styled.h2<{ next: string | undefined}>`
   font-size: calc(30px + 0.7vw);
   color: #01010D;
   line-height: 1;
-  text-transform: none;
 
   @media (max-width: 600px) {
     font-size: 20px;
@@ -169,7 +166,6 @@ const Tagline = styled.p`
   font-size: calc(20px + 0.1vw);
   color: #01010D;
   line-height: 1;
-  text-transform: none;
   @media (max-width: 600px) {
     font-size: 18px;
     margin-bottom: 10px;
@@ -180,7 +176,6 @@ const StyledText = styled.p`
   margin-bottom: 10px;
   font-size: 16px;
   color: #01010D;
-  text-transform: none;
   @media (max-width: 600px) {
     font-size: 14px;
   }
