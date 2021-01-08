@@ -108,7 +108,8 @@ const ModalWindow = styled.div`
     height: 75vw;
   }
   @media (max-width: 600px) {
-    top: 5%;
+    top: 0;
+    bottom: 0;
     flex-direction: column;
     height: auto;
   }
