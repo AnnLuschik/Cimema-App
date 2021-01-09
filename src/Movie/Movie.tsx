@@ -127,6 +127,13 @@ export const Movie: React.FunctionComponent = () => {
     sortOrderValue,
   ]);
 
+  useEffect(() => {
+    if (!responseData) {
+      setSortByValue('release_date');
+      setSortOrderValue('desc');
+    }
+  }, [responseData]);
+
   const loader = useRef<HTMLDivElement>(null);
 
   return (
