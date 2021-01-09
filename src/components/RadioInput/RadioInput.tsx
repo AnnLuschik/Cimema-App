@@ -9,16 +9,14 @@ interface IProps {
   onChange: () => void
 }
 
-export function RadioInput({
+export const RadioInput = React.memo(({
   id, value, currentSearch, onChange,
-}: IProps) {
-  return (
-    <>
-      <StyledInput type="radio" id={id} onChange={onChange} checked={currentSearch === id} />
-      <StyledLabel htmlFor={id} isChecked={currentSearch === id}>{value}</StyledLabel>
-    </>
-  );
-}
+}: IProps) => (
+  <>
+    <StyledInput type="radio" id={id} onChange={onChange} checked={currentSearch === id} />
+    <StyledLabel htmlFor={id} isChecked={currentSearch === id}>{value}</StyledLabel>
+  </>
+));
 
 const StyledInput = styled.input`
   visibility: hidden;

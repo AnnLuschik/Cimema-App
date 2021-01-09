@@ -6,13 +6,13 @@ interface IProps {
   value: string
 }
 
-export function Input({ onChange, value }: IProps) {
+export const Input = React.memo(({ onChange, value }: IProps) => {
   const onChangeText = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event.target.value);
   }, [onChange]);
 
   return <StyledInput onChange={onChangeText} value={value} />;
-}
+});
 
 const StyledInput = styled.input`
   width: 100%;

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { IMovieItem } from '../../types';
 import defaultPicture from '../../../images/default-movie.jpg';
 
-function Item({
+export const MovieItem = React.memo(({
   title, genres, release_date: date, poster_path: path,
-}: IMovieItem) {
+}: IMovieItem) => {
   const year = useMemo(() => date.split('-')[0], [date]);
   const genresData = useMemo(() => genres.join(' & '), [genres]);
 
@@ -34,7 +34,7 @@ function Item({
       </DataContainer>
     </MovieCard>
   );
-}
+});
 
 const MovieCard = styled.div`
   display: flex;
@@ -97,5 +97,3 @@ const StyledText = styled.p`
   color: #000000;
   text-transform: none;
 `;
-
-export const MovieItem = React.memo(Item);

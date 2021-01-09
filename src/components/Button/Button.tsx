@@ -6,9 +6,9 @@ interface IProps {
   onClick: () => void
 }
 
-export function Button({ children, onClick, ...restProps }: IProps) {
-  return <StyledButton onClick={onClick} {...restProps}>{children}</StyledButton>;
-}
+export const Button = React.memo(({
+  children, onClick, ...restProps
+}: IProps) => <StyledButton onClick={onClick} {...restProps}>{children}</StyledButton>);
 
 const StyledButton = styled.button`
   padding: 0.5em 1em;

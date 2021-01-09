@@ -11,32 +11,30 @@ interface IProps {
   currentOrder: SortOrderType
 }
 
-export function TopBar({
+export const TopBar = React.memo(({
   total, onClickTitle, onClickDate, onClickRating, currentSort, currentOrder,
-}: IProps) {
-  return (
-    <Container>
-      <div>
-        <Text>{total ? `${total} movies found` : 'Nothing found'}</Text>
-      </div>
-      <SortPanel>
-        <StyledText>Sort by</StyledText>
-        <StyledButton onClick={onClickTitle} id="title" current={currentSort} order={currentOrder}>
-          {currentSort === 'title' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
-          title
-        </StyledButton>
-        <StyledButton onClick={onClickDate} id="release_date" current={currentSort} order={currentOrder}>
-          {currentSort === 'release_date' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
-          release date
-        </StyledButton>
-        <StyledButton onClick={onClickRating} id="vote_average" current={currentSort} order={currentOrder}>
-          {currentSort === 'vote_average' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
-          rating
-        </StyledButton>
-      </SortPanel>
-    </Container>
-  );
-}
+}: IProps) => (
+  <Container>
+    <div>
+      <Text>{total ? `${total} movies found` : 'Nothing found'}</Text>
+    </div>
+    <SortPanel>
+      <StyledText>Sort by</StyledText>
+      <StyledButton onClick={onClickTitle} id="title" current={currentSort} order={currentOrder}>
+        {currentSort === 'title' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
+        title
+      </StyledButton>
+      <StyledButton onClick={onClickDate} id="release_date" current={currentSort} order={currentOrder}>
+        {currentSort === 'release_date' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
+        release date
+      </StyledButton>
+      <StyledButton onClick={onClickRating} id="vote_average" current={currentSort} order={currentOrder}>
+        {currentSort === 'vote_average' ? <ArrowSpan>{String.fromCharCode(currentOrder === 'asc' ? 8593 : 8595)}</ArrowSpan> : null}
+        rating
+      </StyledButton>
+    </SortPanel>
+  </Container>
+));
 
 const Container = styled.div`
   display: flex;

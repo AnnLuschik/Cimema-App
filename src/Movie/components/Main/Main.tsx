@@ -11,7 +11,7 @@ interface IProps {
   data: IMovieItem[]
 }
 
-export const Main = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, ref) => {
+const MainSection = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, ref) => {
   const { singleMovieData } = useSelector((state: RootState) => state.movie);
 
   useEffect(() => {
@@ -68,3 +68,5 @@ const LoaderDiv = styled.div`
   width: 100%;
   height: 2px;
 `;
+
+export const Main = React.memo(MainSection);
