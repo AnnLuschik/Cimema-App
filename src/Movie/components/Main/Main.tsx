@@ -24,21 +24,26 @@ const MainSection = React.forwardRef<HTMLDivElement, IProps>(({ data }: IProps, 
 
   return (
     <Container>
-      <MoviesContainer>
-        { data.map(({
-          title, genres, release_date, poster_path, id,
-        }) => (
-          <StyledLink key={id} to={`/film/${id}`}>
-            <MovieItem
-              title={title}
-              genres={genres}
-              release_date={release_date}
-              poster_path={poster_path}
-            />
-          </StyledLink>
-        ))}
-        <LoaderDiv ref={ref} />
-      </MoviesContainer>
+      {data.length
+        ? (
+          <MoviesContainer>
+            { data.map(({
+              title, genres, release_date, poster_path, id,
+            }) => (
+              <StyledLink key={id} to={`/film/${id}`}>
+                <MovieItem
+                  title={title}
+                  genres={genres}
+                  release_date={release_date}
+                  poster_path={poster_path}
+                />
+              </StyledLink>
+            ))}
+            <LoaderDiv ref={ref} />
+          </MoviesContainer>
+        )
+        : <Text>Nothing found</Text>}
+
     </Container>
   );
 });
@@ -48,7 +53,16 @@ const StyledLink = styled(Link)`
 `;
 
 const Container = styled.div`
+  display: flex;
+  justify-content: center;
   width: 100%;
+`;
+
+const Text = styled.p`
+  margin-top: 40px;
+  font-weight: 600;
+  font-size: 26px;
+  color: #000000;
 `;
 
 const MoviesContainer = styled.div`

@@ -16,7 +16,7 @@ export const TopBar = React.memo(({
 }: IProps) => (
   <Container>
     <div>
-      <Text>{total ? `${total} movies found` : 'Nothing found'}</Text>
+      <Text>{total === 1 ? `${total} movie found` : `${total} movies found`}</Text>
     </div>
     <SortPanel>
       <StyledText>Sort by</StyledText>
