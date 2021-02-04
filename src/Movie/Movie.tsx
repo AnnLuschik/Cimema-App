@@ -63,7 +63,7 @@ export const Movie: React.FunctionComponent = () => {
       sortBy: sortByValue,
       sortOrder: sortOrderValue,
     }));
-    setValue('');
+    // setValue('');
     setSortByValue('title');
     setSortOrderValue('asc');
   }, [dispatch, value, searchByValue, sortByValue, sortOrderValue]);
