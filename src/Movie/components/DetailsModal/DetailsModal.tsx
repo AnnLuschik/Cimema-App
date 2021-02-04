@@ -53,7 +53,7 @@ export function DetailsModal() {
     <Fogging onClick={backFunction}>
       <ModalWindow {...swipeHandlers} onClick={(event) => event.stopPropagation()} className="modal">
         <ImageContainer>
-          {loadingModal ? <FadeLoader /> : <StyledImg src={image} alt="" onError={onErrorImg} /> }
+          {loadingModal ? <FadeLoader /> : <StyledImg src={image || defaultPicture} alt="" onError={onErrorImg} /> }
         </ImageContainer>
         <>
           {title ? (

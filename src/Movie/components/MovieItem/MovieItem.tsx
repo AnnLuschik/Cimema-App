@@ -18,7 +18,7 @@ export const MovieItem = React.memo(({
     <MovieCard>
       <ImageContainer>
         <StyledImg
-          src={path}
+          src={path || defaultPicture}
           alt={title}
           onError={onErrorImg}
         />
