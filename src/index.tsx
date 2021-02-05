@@ -8,7 +8,7 @@ import { store } from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <HashRouter basename="/">
+    <HashRouter basename={process.env.PUBLIC_URL}>
       <Provider store={store}>
         <App />
       </Provider>
