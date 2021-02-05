@@ -68,7 +68,7 @@ const Text = styled.p`
 const MoviesContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-row-gap: 10px;
+  grid-row-gap: 25px;
   grid-column-gap: 1.5vw;
   justify-items: center;
   width: 100%;

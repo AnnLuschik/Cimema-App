@@ -12,22 +12,21 @@ import { RootState } from '../store';
 import headerBcg from '../images/header.jpg';
 
 export const Movie: React.FunctionComponent = () => {
-  const [value, setValue] = useState('');
-  const [searchByValue, setSearchByValue] = useState<SearchByType>('title');
-  const [sortByValue, setSortByValue] = useState<SortByType>('title');
-  const [sortOrderValue, setSortOrderValue] = useState<SortOrderType>('asc');
-
   const {
     responseData,
     loading,
     errorMessage,
     searchParams: {
-      searchValue: currentSearchValue,
       searchBy: currentSearchBy,
       sortBy: currentSortBy,
       sortOrder: currentSortOrder,
     },
   } = useSelector((state: RootState) => state.movie);
+
+  const [value, setValue] = useState('');
+  const [searchByValue, setSearchByValue] = useState<SearchByType>(currentSearchBy);
+  const [sortByValue, setSortByValue] = useState<SortByType>(currentSortBy);
+  const [sortOrderValue, setSortOrderValue] = useState<SortOrderType>(currentSortOrder);
 
   const dispatch = useDispatch();
 
@@ -60,79 +59,56 @@ export const Movie: React.FunctionComponent = () => {
     dispatch(getMoviesRequest({
       searchValue: value,
       searchBy: searchByValue,
-      sortBy: sortByValue,
-      sortOrder: sortOrderValue,
+      sortBy: 'release_date',
+      sortOrder: 'desc',
     }));
-    // setValue('');
-    setSortByValue('title');
-    setSortOrderValue('asc');
-  }, [dispatch, value, searchByValue, sortByValue, sortOrderValue]);
+    setSortByValue('release_date');
+    setSortOrderValue('desc');
+  }, [dispatch, value, searchByValue]);
 
   const onClickTitleBtn = useCallback(() => {
     setSortByValue('title');
-    if (currentSortBy !== 'title') {
-      setSortOrderValue('asc');
-    } else if (sortOrderValue === 'asc') {
-      setSortOrderValue('desc');
-    } else {
-      setSortOrderValue('asc');
-    }
-  }, [sortOrderValue, currentSortBy]);
+    setSortOrderValue(sortOrderValue === 'asc' ? 'desc' : 'asc');
+    dispatch(getMoviesRequest({
+      searchValue: value,
+      searchBy: searchByValue,
+      sortBy: 'title',
+      sortOrder: sortOrderValue === 'asc' ? 'desc' : 'asc',
+    }));
+  }, [dispatch, sortOrderValue, searchByValue, value]);
 
   const onClickDateBtn = useCallback(() => {
     setSortByValue('release_date');
-    if (currentSortBy !== 'release_date') {
-      setSortOrderValue('desc');
-    } else if (sortOrderValue === 'asc') {
-      setSortOrderValue('desc');
-    } else {
-      setSortOrderValue('asc');
-    }
-  }, [sortOrderValue, currentSortBy]);
+    setSortOrderValue(sortOrderValue === 'asc' ? 'desc' : 'asc');
+    dispatch(getMoviesRequest({
+      searchValue: value,
+      searchBy: searchByValue,
+      sortBy: 'release_date',
+      sortOrder: sortOrderValue === 'asc' ? 'desc' : 'asc',
+    }));
+  }, [dispatch, sortOrderValue, searchByValue, value]);
 
   const onClickRatingBtn = useCallback(() => {
     setSortByValue('vote_average');
-    if (currentSortBy !== 'vote_average') {
-      setSortOrderValue('desc');
-    } else if (sortOrderValue === 'asc') {
-      setSortOrderValue('desc');
-    } else {
-      setSortOrderValue('asc');
-    }
-  }, [sortOrderValue, currentSortBy]);
-
-  useEffect(() => {
-    if (!(sortByValue === 'title' && sortOrderValue === 'asc')) {
-      dispatch(getMoviesRequest({
-        searchValue: currentSearchValue,
-        searchBy: currentSearchBy,
-        sortBy: sortByValue,
-        sortOrder: sortOrderValue,
-      }));
-    } else if (currentSortOrder === 'desc' || currentSortBy !== 'title') {
-      dispatch(getMoviesRequest({
-        searchValue: currentSearchValue,
-        searchBy: currentSearchBy,
-        sortBy: sortByValue,
-        sortOrder: sortOrderValue,
-      }));
-    }
-  }, [
-    dispatch,
-    sortByValue,
-    currentSearchValue,
-    currentSearchBy,
-    currentSortBy,
-    currentSortOrder,
-    sortOrderValue,
-  ]);
+    setSortOrderValue(sortOrderValue === 'asc' ? 'desc' : 'asc');
+    dispatch(getMoviesRequest({
+      searchValue: value,
+      searchBy: searchByValue,
+      sortBy: 'vote_average',
+      sortOrder: sortOrderValue === 'asc' ? 'desc' : 'asc',
+    }));
+  }, [dispatch, sortOrderValue, searchByValue, value]);
 
   useEffect(() => {
     if (!responseData) {
-      setSortByValue('release_date');
-      setSortOrderValue('desc');
+      dispatch(getMoviesRequest({
+        searchValue: value,
+        searchBy: searchByValue,
+        sortBy: sortByValue,
+        sortOrder: sortOrderValue,
+      }));
     }
-  }, [responseData]);
+  }, [dispatch, responseData, searchByValue, value, sortByValue, sortOrderValue]);
 
   const loader = useRef<HTMLDivElement>(null);
 
@@ -154,7 +130,7 @@ export const Movie: React.FunctionComponent = () => {
           </StyledForm>
         </Fogging>
       </StyledHeader>
-      { loading ? <BarLoader color="#F65263" width="100%" /> : null }
+      { loading ? <BarLoader color="#F65263" width="100%" height="5px" /> : <div style={{ width: '100%', height: '5px' }} /> }
       { errorMessage ? <p style={{ color: '#b40719' }}>{errorMessage}</p> : null }
       { responseData ? (
         <TopBar

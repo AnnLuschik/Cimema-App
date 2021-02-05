@@ -5,8 +5,8 @@ export type SortOrderType = 'desc' | 'asc';
 export interface ISearchParams {
   searchValue: string
   searchBy: SearchByType
-  sortBy?: SortByType
-  sortOrder?: SortOrderType
+  sortBy: SortByType
+  sortOrder: SortOrderType
 }
 
 export interface IMovieItem {

@@ -9,7 +9,7 @@ import {
 
 const initialState: MovieSearchState = {
   searchParams: {
-    searchValue: '', searchBy: 'title', sortBy: 'title', sortOrder: 'asc',
+    searchValue: '', searchBy: 'title', sortBy: 'release_date', sortOrder: 'desc',
   },
   responseData: null,
   singleMovieData: null,
