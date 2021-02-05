@@ -70,7 +70,13 @@ export function DetailsModal() {
             </ContentContainer>
           )
             : null}
-          {!title && !loadingModal ? <p>Not found</p> : null}
+          {!title && !loadingModal
+            ? (
+              <ContentContainer style={{ justifyContent: 'center' }}>
+                <NotFoundText>Not found</NotFoundText>
+              </ContentContainer>
+            )
+            : null}
         </>
       </ModalWindow>
     </Fogging>
@@ -243,4 +249,9 @@ const VotersSpan = styled.span`
       display: none;
     }
   }
+`;
+
+const NotFoundText = styled.p`
+  font-size: 26px;
+  text-align: center;
 `;
