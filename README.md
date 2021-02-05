@@ -1,4 +1,4 @@
-<a href="https://annluschik.github.io/Cinema-App">Watch here</a>
+<a href="https://annluschik.github.io/Cinema-App/">Watch here</a>
 
 The movie search app is based on <a href="https://reactjs-cdp.herokuapp.com/api-docs">free API</a>.
 
