@@ -166,7 +166,7 @@ const StyledForm = styled.form`
   @media (max-width: 768px) {
     width: 80%;
   }
-  @media (max-width: 320px) {
+  @media (max-width: 360px) {
     width: 95%;
   }
 `;
@@ -215,7 +215,7 @@ const Fogging = styled.div`
 
 const StyledTitle = styled.h3`
   font-weight: 600;
-  font-size: 30px;
+  font-size: calc(25px + 0.4vw);
   color: #FFFFFF;
   text-transform: uppercase;
 `;
