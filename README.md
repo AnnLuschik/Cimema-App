@@ -12,4 +12,4 @@ When user clicks on a movie item, shows a modal component with full movie descri
 
 There is a custom 404 page, where user will be redirected in case of invalid URL.
 
-USED: React, Redux, React Router, API IntersectionObserver, Typescript, Styled Components.
+USED: React, Redux, React Router, API IntersectionObserver, Typescript, Styled Components, React Swipeable, Eslint.
